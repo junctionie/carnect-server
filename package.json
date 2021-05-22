@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:back": "npx sequelize-cli db:migrate:undo:all",
-    "dev": "nodemon ./bin/www"
+    "dev": " nodemon ./bin/www --delay 2"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

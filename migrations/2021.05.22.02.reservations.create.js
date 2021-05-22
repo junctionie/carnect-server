@@ -2,16 +2,24 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
-      userId: {
+    return queryInterface.createTable('Reservations', {
+      reservationId: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
-      displayName: {
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      start: {
         type: DataTypes.STRING,
       },
-      provider: {
+      destination: {
         type: DataTypes.STRING,
+      },
+      dueDate: {
+        type: DataTypes.DATE,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -26,6 +34,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Reservations');
   },
 };

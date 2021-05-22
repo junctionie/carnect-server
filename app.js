@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 
 // 미들웨어
 const { Exception } = require('./middlewares/Exception');
-const { authenticate } = require('./middlewares/Authentication');
+const { authenticate, passport } = require('./middlewares/Authentication');
 
 // 라우터
 const indexRouter = require('./routes/index');
@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(authenticate);
-app.use('/oauth', indexRouter);
+// app.use(authenticate);
+// app.use('/oauth', indexRouter);
 app.use('/reservations', reservationsRouter);
 
 // error handler

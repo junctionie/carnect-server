@@ -1,17 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define(
-    'Users',
+  const Reservations = sequelize.define(
+    'Reservations',
     {
+      reservationId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       userId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
       },
-      displayName: {
+      start: {
         type: DataTypes.STRING,
       },
-      provider: {
+      destination: {
         type: DataTypes.STRING,
+      },
+      dueDate: {
+        type: DataTypes.DATE,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -29,5 +39,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return Users;
+  return Reservations;
 };

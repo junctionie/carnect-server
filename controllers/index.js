@@ -8,7 +8,6 @@ const get = async (req, res, next) => {
   //     return res.status(StatusCodes.BAD_REQUEST).json({ errors: errors.array() });
   //   }
   console.log('req');
-  return res.status(StatusCodes.OK).json(req.user);
 };
 
 module.exports = { get };

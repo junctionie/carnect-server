@@ -17,16 +17,19 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       // 사용자의 정보는 profile에 들어있다.
       const { id, provider, displayName } = profile;
+      console.log('Test');
       try {
         const user = await Users.findOrCreate({
           where: { userId: id },
+          raw: true,
           defaults: {
             userId: id,
             displayName,
             provider,
           },
         });
-        done(null, user);
+        console.log('refresh');
+        done(null, { accessToken, refreshToken, ...user });
       } catch (err) {
         return done(err);
       }
@@ -51,4 +54,4 @@ const authenticate = (req, res, next) => {
   }
 };
 
-module.exports = { authenticate };
+module.exports = { authenticate, passport };
