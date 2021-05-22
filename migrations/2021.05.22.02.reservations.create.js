@@ -10,6 +10,30 @@ module.exports = {
       },
       userId: {
         type: DataTypes.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      limitPersonCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      cost: {
+        type: DataTypes.INTEGER,
+      },
+      facility: {
+        type: DataTypes.STRING,
+      },
+      startDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      endDate: {
+        type: DataTypes.DATE,
         allowNull: false,
       },
       start: {
@@ -17,9 +41,6 @@ module.exports = {
       },
       destination: {
         type: DataTypes.STRING,
-      },
-      dueDate: {
-        type: DataTypes.DATE,
       },
       createdAt: {
         type: DataTypes.DATE,

@@ -1,18 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define(
-    'ReservationDetails',
+  const Participations = sequelize.define(
+    'Participations',
     {
-      reservationDetailId: {
+      participationId: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-      },
-      reservationId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'Reservations',
-          key: 'reservationId',
-        },
       },
       userId: {
         type: DataTypes.INTEGER,
@@ -21,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
           key: 'userId',
         },
       },
-      cost: {
+      reservationId: {
         type: DataTypes.INTEGER,
-      },
-      dueDate: {
-        type: DataTypes.DATE,
+        references: {
+          model: 'Reservations',
+          key: 'reservationId',
+        },
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -42,4 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       timestamp: true,
     }
   );
+
+  return Participations;
 };

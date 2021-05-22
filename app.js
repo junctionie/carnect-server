@@ -22,7 +22,6 @@ app.use(cookieParser());
 // app.use(authenticate);
 // app.use('/oauth', indexRouter);
 app.use('/reservations', reservationsRouter);
-
 // error handler
 app.use(Exception);
 

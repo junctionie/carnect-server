@@ -5,16 +5,29 @@ const {
   getReservations,
   updateReservation,
   cancelReservation,
+  getReservation,
 } = require('../service/reservations');
 
 const create = async (req, res, next) => {
   const result = await reservationVehicle(req.body);
+
+  if (result.status === StatusCodes.BAD_REQUEST) {
+    const message = result.message;
+    return res.status(result.status).json({ message });
+  }
+
   return res.status(StatusCodes.OK).json(result);
 };
 
 const gets = async (req, res, next) => {
   const result = await getReservations();
   return res.status(StatusCodes.OK).json(result);
+};
+
+const get = async (req, res, next) => {
+  const { reservationId } = req.body;
+  const result = await getReservation(reservationId);
+  return res.status(StatusCodes.OK).json();
 };
 
 const patch = async (req, res, next) => {

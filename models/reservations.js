@@ -14,14 +14,32 @@ module.exports = (sequelize, DataTypes) => {
           key: 'userId',
         },
       },
+      description: {
+        type: DataTypes.STRING,
+      },
+      limitPersonCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      cost: {
+        type: DataTypes.INTEGER,
+      },
+      facility: {
+        type: DataTypes.STRING,
+      },
+      startDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      endDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
       start: {
         type: DataTypes.STRING,
       },
       destination: {
         type: DataTypes.STRING,
-      },
-      dueDate: {
-        type: DataTypes.DATE,
       },
       createdAt: {
         type: DataTypes.DATE,
