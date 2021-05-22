@@ -6,6 +6,7 @@ const {
   updateReservation,
   cancelReservation,
   getReservation,
+  getMyReservations,
 } = require('../service/reservations');
 
 const create = async (req, res, next) => {
@@ -30,6 +31,12 @@ const get = async (req, res, next) => {
   return res.status(StatusCodes.OK).json();
 };
 
+const getsReservations = async (req, res, next) => {
+  const { userId } = req.params;
+  const result = await getMyReservations(userId);
+  return res.status(StatusCodes.OK).json(result);
+};
+
 const patch = async (req, res, next) => {
   const { reservationId } = req.params;
 
@@ -44,4 +51,4 @@ const remove = async (req, res, next) => {
   return res.status(StatusCodes.OK).json(result);
 };
 
-module.exports = { create, gets, patch, remove };
+module.exports = { create, gets, patch, remove, getsReservations };

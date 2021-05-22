@@ -9,6 +9,7 @@ const { authenticate, passport } = require('./middlewares/Authentication');
 // 라우터
 const indexRouter = require('./routes/index');
 const reservationsRouter = require('./routes/reservations');
+const participationRouter = require('./routes/participations');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 // app.use(authenticate);
 // app.use('/oauth', indexRouter);
 app.use('/reservations', reservationsRouter);
+app.use('/participations', participationRouter);
 // error handler
 app.use(Exception);
 

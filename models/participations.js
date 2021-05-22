@@ -37,5 +37,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  Participations.associate = (models) => {
+    Participations.belongsTo(models.Reservations, {
+      as: 'r',
+    });
+  };
+
   return Participations;
 };

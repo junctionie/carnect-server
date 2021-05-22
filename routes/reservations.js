@@ -4,6 +4,8 @@ const asyncHandler = require('express-async-handler');
 const reservationsController = require('../controllers/reservations');
 
 router.get('/', asyncHandler(reservationsController.gets));
+router.get('/:userId', asyncHandler(reservationsController.getsReservations));
+
 router.post('/', asyncHandler(reservationsController.create));
 router.patch('/:reservationId', asyncHandler(reservationsController.patch));
 router.delete('/:reservationId', asyncHandler(reservationsController.remove));
