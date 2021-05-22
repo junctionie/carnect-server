@@ -25,6 +25,17 @@ const findAllReservation = async () => {
   }
 };
 
+const findAllReservationByUserId = async (userId) => {
+  try {
+    const result = await Reservations.findAll({
+      where: { deletedAt: null, userId },
+    });
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const findOneReservationByDateTime = async (userId, start, end) => {
   try {
     const result = await Reservations.count({
@@ -72,7 +83,6 @@ const findOneReservationByParticipation = async (userId, start, end) => {
         model: Participations,
         as: 'p',
       },
-
       raw: true,
       logging: console.log,
     });
@@ -107,6 +117,27 @@ const destroyOneReservation = async (userId, reservationId) => {
   }
 };
 
+const findAllReservationByParticipation = async (userId) => {
+  try {
+    const result = await Reservations.findAll({
+      where: {
+        userId,
+        deletedAt: null,
+      },
+      include: {
+        model: Participations,
+        attributes: [],
+        as: 'p',
+      },
+      raw: true,
+      logging: console.log,
+    });
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   createReservation,
   findAllReservation,
@@ -114,4 +145,6 @@ module.exports = {
   destroyOneReservation,
   findOneReservationByDateTime,
   findOneReservationByParticipation,
+  findAllReservationByParticipation,
+  findAllReservationByUserId,
 };

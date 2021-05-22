@@ -5,31 +5,41 @@ const {
   destroyOneReservation,
   findOneReservationByDateTime,
   findOneReservationByParticipation,
+  findAllReservationByUserId,
 } = require('../query/reservations');
 
 const { StatusCodes } = require('http-status-codes');
 
-const reservationVehicle = async (param) => {
-  const { userId, startDate, endDate } = param;
+const isDuplicatedReservation = async (userId, startDate, endDate) => {
   const reservationCount = await findOneReservationByDateTime(
     Number(userId),
     startDate,
     endDate
   );
-  if (reservationCount > 0) {
+
+  return reservationCount > 0;
+};
+
+const isDuplicatedParticipation = async (userId, startDate, endDate) => {
+  const participationCount = await findOneReservationByParticipation(
+    Number(userId),
+    startDate,
+    endDate
+  );
+  return participationCount > 0;
+};
+
+const reservationVehicle = async (param) => {
+  const { userId, startDate, endDate } = param;
+
+  if (await isDuplicatedReservation(userId, startDate, endDate)) {
     return {
       status: StatusCodes.BAD_REQUEST,
       message: '겹치는 예약이 존재합니다.',
     };
   }
 
-  const participationCount = await findOneReservationByParticipation(
-    Number(userId),
-    startDate,
-    endDate
-  );
-
-  if (participationCount > 0) {
+  if (await isDuplicatedParticipation(userId, startDate, endDate)) {
     return {
       status: StatusCodes.BAD_REQUEST,
       message: '겹치는 일정이 존재합니다.',
@@ -51,6 +61,11 @@ const getReservation = async (reservationId) => {
   return result;
 };
 
+const getMyReservations = async (userId) => {
+  const result = await findAllReservationByUserId(userId);
+  return result;
+};
+
 const updateReservation = async (reservationId, reservation) => {
   const result = await updateOneReservation(reservationId, reservation);
   return result;
@@ -67,4 +82,7 @@ module.exports = {
   updateReservation,
   cancelReservation,
   getReservation,
+  isDuplicatedParticipation,
+  isDuplicatedReservation,
+  getMyReservations,
 };
