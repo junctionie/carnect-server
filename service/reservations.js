@@ -4,6 +4,7 @@ const {
   updateOneReservation,
   destroyOneReservation,
   findOneReservationByDateTime,
+  findOneReservationByParticipation,
 } = require('../query/reservations');
 
 const { StatusCodes } = require('http-status-codes');
@@ -15,7 +16,6 @@ const reservationVehicle = async (param) => {
     startDate,
     endDate
   );
-
   if (reservationCount > 0) {
     return {
       status: StatusCodes.BAD_REQUEST,
@@ -23,7 +23,18 @@ const reservationVehicle = async (param) => {
     };
   }
 
-  // TODO 참가 일정 겹치는지 확인
+  const participationCount = await findOneReservationByParticipation(
+    Number(userId),
+    startDate,
+    endDate
+  );
+
+  if (participationCount > 0) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      message: '겹치는 일정이 존재합니다.',
+    };
+  }
 
   const result = await createReservation(param);
 

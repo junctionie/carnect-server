@@ -1,4 +1,9 @@
-const { Reservations, sequelize, Sequelize } = require('../models/index');
+const {
+  Reservations,
+  sequelize,
+  Sequelize,
+  Participations,
+} = require('../models/index');
 const { Op } = Sequelize;
 
 const createReservation = async (reservation) => {
@@ -64,7 +69,7 @@ const findOneReservationByParticipation = async (userId, start, end) => {
         ],
       },
       include: {
-        model: 'Participation',
+        model: Participations,
         as: 'p',
       },
 
