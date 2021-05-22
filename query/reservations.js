@@ -1,4 +1,10 @@
-const { Reservations, sequelize } = require('../models/index');
+const {
+  Reservations,
+  sequelize,
+  Sequelize,
+  Participations,
+} = require('../models/index');
+const { Op } = Sequelize;
 
 const createReservation = async (reservation) => {
   try {
@@ -13,6 +19,63 @@ const createReservation = async (reservation) => {
 const findAllReservation = async () => {
   try {
     const result = await Reservations.findAll({ where: { deletedAt: null } });
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const findOneReservationByDateTime = async (userId, start, end) => {
+  try {
+    const result = await Reservations.count({
+      where: {
+        userId,
+        deletedAt: null,
+        [Op.and]: [
+          {
+            startDate: {
+              [Op.lt]: end,
+            },
+            endDate: {
+              [Op.gt]: start,
+            },
+          },
+        ],
+      },
+      raw: true,
+      logging: console.log,
+    });
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const findOneReservationByParticipation = async (userId, start, end) => {
+  try {
+    const result = await Reservations.count({
+      where: {
+        userId,
+        deletedAt: null,
+        [Op.and]: [
+          {
+            startDate: {
+              [Op.lt]: end,
+            },
+            endDate: {
+              [Op.gt]: start,
+            },
+          },
+        ],
+      },
+      include: {
+        model: Participations,
+        as: 'p',
+      },
+
+      raw: true,
+      logging: console.log,
+    });
     return result;
   } catch (err) {
     throw err;
@@ -49,4 +112,6 @@ module.exports = {
   findAllReservation,
   updateOneReservation,
   destroyOneReservation,
+  findOneReservationByDateTime,
+  findOneReservationByParticipation,
 };

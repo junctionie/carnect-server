@@ -3,15 +3,51 @@ const {
   findAllReservation,
   updateOneReservation,
   destroyOneReservation,
+  findOneReservationByDateTime,
+  findOneReservationByParticipation,
 } = require('../query/reservations');
 
-const reservationVehicle = async (reservation) => {
-  const result = await createReservation(reservation);
+const { StatusCodes } = require('http-status-codes');
+
+const reservationVehicle = async (param) => {
+  const { userId, startDate, endDate } = param;
+  const reservationCount = await findOneReservationByDateTime(
+    Number(userId),
+    startDate,
+    endDate
+  );
+  if (reservationCount > 0) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      message: '겹치는 예약이 존재합니다.',
+    };
+  }
+
+  const participationCount = await findOneReservationByParticipation(
+    Number(userId),
+    startDate,
+    endDate
+  );
+
+  if (participationCount > 0) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      message: '겹치는 일정이 존재합니다.',
+    };
+  }
+
+  const result = await createReservation(param);
+
   return result;
 };
 
 const getReservations = async () => {
   const result = await findAllReservation();
+  return result;
+};
+
+const getReservation = async (reservationId) => {
+  const result = await findOneReservation(Number(reservationId));
   return result;
 };
 
@@ -30,4 +66,5 @@ module.exports = {
   getReservations,
   updateReservation,
   cancelReservation,
+  getReservation,
 };
