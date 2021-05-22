@@ -2,7 +2,16 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Template', {
+    return queryInterface.createTable('Users', {
+      userId: {
+        type: DataTypes.INTEGER,
+      },
+      displayName: {
+        type: DataTypes.STRING,
+      },
+      provider: {
+        type: DataTypes.STRING,
+      },
       createdAt: {
         type: DataTypes.DATE,
       },
@@ -16,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Template');
+    return queryInterface.dropTable('Users');
   },
 };

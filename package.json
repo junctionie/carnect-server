@@ -6,18 +6,21 @@
     "start": "node ./bin/www",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:back": "npx sequelize-cli db:migrate:undo:all",
-    "dev" : "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "dot-env": "0.0.1",
+    "dotenv": "^10.0.0",
     "express": "~4.16.1",
     "express-async-handler": "^1.1.4",
     "express-validator": "^6.11.1",
     "http-status-codes": "^2.1.4",
     "morgan": "~1.9.1",
     "mysql2": "^2.2.5",
+    "passport": "^0.4.1",
+    "passport-kakao": "^1.0.1",
+    "pm2": "^4.5.6",
     "sequelize": "^6.6.2"
   },
   "devDependencies": {

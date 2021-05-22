@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const asyncHandler = require('express-async-handler');
-const indexController = require('../controllers/index');
+const reservationsController = require('../controllers/reservations');
 
-router.get('/', asyncHandler(indexController.get));
+router.get('/', asyncHandler(reservationsController.get));
 
 module.exports = router;
