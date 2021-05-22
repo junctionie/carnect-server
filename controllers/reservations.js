@@ -13,6 +13,7 @@ const create = async (req, res, next) => {
 };
 
 const gets = async (req, res, next) => {
+  console.log('hi')
   const result = await getReservations();
   return res.status(StatusCodes.OK).json(result);
 };

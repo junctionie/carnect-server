@@ -5,12 +5,18 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
+        autoIncrement: true,
       },
       displayName: {
         type: DataTypes.STRING,
       },
       provider: {
+        type: DataTypes.STRING,
+      },
+      kakaoId: {
+        type: DataTypes.INTEGER
+      },
+      kakaoToken: {
         type: DataTypes.STRING,
       },
       createdAt: {
