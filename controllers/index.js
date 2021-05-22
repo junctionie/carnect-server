@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 const { StatusCodes } = require('http-status-codes');
 const utils = require('../utils/utils');
+const Tokens = require('../models/index').Tokens;
+const Users = require('../models/index').Users;
 
 const get = async (req, res, next) => {
   //   const erros = validationResult(req.erros);
@@ -32,8 +34,26 @@ const login = async  (req, res, next) => {
   const token = await utils.generateToken(token_data);
   console.log(token)
 
-  return res.status(StatusCodes.OK).json({token});
+  return res.status(StatusCodes.OK).json({data: token});
 }
 
+const user = async  (req, res, next) => {
+  const body = req.body;
+    console.log(body)
+    const _token =  await Tokens.findOne({
+      where: { token: body.token },
+      raw: true,
+    })
 
-module.exports = { get, login };
+  console.log(_token)
+  const user = await Users.findOne({
+    where: { userId: _token.userId },
+    raw: true,
+  })
+
+  console.log('sdfdsfsdfsdfsfs', user)
+  return res.status(StatusCodes.OK).json({data: user});
+}
+  
+
+module.exports = { get, login, user };
