@@ -1,4 +1,8 @@
-const { createParticipation } = require('../query/participations');
+const {
+  createParticipation,
+  updateOneParticipation,
+  findOneParticipationBeforeEndDate,
+} = require('../query/participations');
 const { StatusCodes } = require('http-status-codes');
 const {
   isDuplicatedParticipation,
@@ -32,4 +36,17 @@ const getMyParticipations = async (userId) => {
   return result;
 };
 
-module.exports = { joinReservation, getMyParticipations };
+const cancelParticipation = async (participationId, userId) => {
+  const participation = await findOneParticipationBeforeEndDate(
+    Number(participationId),
+    Number(userId)
+  );
+  if (!participation) {
+    const message = '마감 3일전에는 취소가 불가능합니다.';
+    return { status: StatusCodes.BAD_REQUEST, message };
+  }
+
+  return await updateOneParticipation(participationId, userId);
+};
+
+module.exports = { joinReservation, getMyParticipations, cancelParticipation };
