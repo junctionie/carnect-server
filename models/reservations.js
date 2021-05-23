@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
   Reservations.associate = (models) => {
     Reservations.hasMany(models.Participations, {
       foreignKey: 'reservationId',
-      as: 'p',
+      as: 'r',
     });
   };
 

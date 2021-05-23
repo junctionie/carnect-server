@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const {
   joinReservation,
   getMyParticipations,
+  cancelParticipation,
 } = require('../service/participations');
 
 const create = async (req, res, next) => {
@@ -21,4 +22,16 @@ const gets = async (req, res, next) => {
   return res.status(StatusCodes.OK).json(result);
 };
 
-module.exports = { create, gets };
+const cancel = async (req, res, next) => {
+  const { participationId, userId } = req.body;
+  const result = await cancelParticipation(participationId, userId);
+
+  if (result.status === StatusCodes.BAD_REQUEST) {
+    const message = result.message;
+    return res.status(StatusCodes.BAD_REQUEST).json({ message });
+  }
+
+  return res.status(StatusCodes.OK).json(result);
+};
+
+module.exports = { create, gets, cancel };
