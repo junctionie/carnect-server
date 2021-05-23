@@ -22,8 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.use(authenticate);
-app.use('/login', indexRouter);
+app.use(authenticate);
+app.use('/', indexRouter);
 app.use('/reservations', reservationsRouter);
 app.use('/participations', participationRouter);
 // error handler

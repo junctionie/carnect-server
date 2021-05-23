@@ -1,3 +1,4 @@
+const { raw } = require('express');
 const {
   Reservations,
   sequelize,
@@ -24,6 +25,15 @@ const findAllReservation = async () => {
     throw err;
   }
 };
+
+const findOneReservation = async (reservationId) => {
+  try {
+    const result = await Reservations.findOne({ where: { deletedAt: null, reservationId }, raw: true });
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
 
 const findAllReservationByUserId = async (userId) => {
   try {
@@ -147,4 +157,5 @@ module.exports = {
   findOneReservationByParticipation,
   findAllReservationByParticipation,
   findAllReservationByUserId,
+  findOneReservation
 };

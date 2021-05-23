@@ -27,9 +27,10 @@ const gets = async (req, res, next) => {
 };
 
 const get = async (req, res, next) => {
-  const { reservationId } = req.body;
+  const { reservationId } = req.params;
   const result = await getReservation(reservationId);
-  return res.status(StatusCodes.OK).json();
+  console.log('dfsfdsfsdfdsfsd', result)
+  return res.status(StatusCodes.OK).json(result);
 };
 
 const getsReservations = async (req, res, next) => {
@@ -52,4 +53,4 @@ const remove = async (req, res, next) => {
   return res.status(StatusCodes.OK).json(result);
 };
 
-module.exports = { create, gets, patch, remove, getsReservations };
+module.exports = { create, gets, get, patch, remove, getsReservations };

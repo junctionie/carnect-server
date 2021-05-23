@@ -29,7 +29,7 @@ passport.use(
           },
         });
         console.log('refresh');
-        done(null, { accessToken, refreshToken, ...user });
+        done(null);
       } catch (err) {
         return done(err);
       }
@@ -45,9 +45,11 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-const authenticate = (req, res, next) => {
+const authenticate = async (req, res, next, done) => {
+  console.log(res.data)
   try {
-    return passport.authenticate('kakao', { session: false })(req, res, next);
+    done(null, res)
+    // return passport.authenticate('kakao', { session: false })(req, res, next);
   } catch (err) {
     console.log(err);
     throw err;

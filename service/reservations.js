@@ -6,6 +6,7 @@ const {
   findOneReservationByDateTime,
   findOneReservationByParticipation,
   findAllReservationByUserId,
+  findOneReservation
 } = require('../query/reservations');
 
 const { StatusCodes } = require('http-status-codes');
