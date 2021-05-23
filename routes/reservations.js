@@ -3,7 +3,7 @@ const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const reservationsController = require('../controllers/reservations');
 
-router.get('/', asyncHandler(reservationsController.gets));
+router.get('/gets', asyncHandler(reservationsController.gets));
 router.get('/:userId', asyncHandler(reservationsController.getsReservations));
 
 router.post('/', asyncHandler(reservationsController.create));

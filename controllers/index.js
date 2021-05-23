@@ -34,7 +34,7 @@ const login = async  (req, res, next) => {
   const token = await utils.generateToken(token_data);
   console.log(token)
 
-  return res.status(StatusCodes.OK).json({data: token});
+  return res.status(StatusCodes.OK).json(token);
 }
 
 const user = async  (req, res, next) => {
@@ -51,8 +51,7 @@ const user = async  (req, res, next) => {
     raw: true,
   })
 
-  console.log('sdfdsfsdfsdfsfs', user)
-  return res.status(StatusCodes.OK).json({data: user});
+  return res.status(StatusCodes.OK).json(user);
 }
   
 
