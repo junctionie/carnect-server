@@ -1,16 +1,16 @@
 # canet-server
 
-## we are juctionie
+## We are juctionie
 
 our team consist of three developers.
 
-## waht is carnect project
+## What is carnect project
 
 carnect is compound word that car + connect.
 
 it is mean by that Car reservation services for local transportation vulnerable people.
 
-## tech stack
+## Tech stack
 
 - nodejs
 - express
@@ -18,7 +18,7 @@ it is mean by that Car reservation services for local transportation vulnerable 
 
 ---
 
-## install and run
+## Install and Run
 
 ```bash
 
