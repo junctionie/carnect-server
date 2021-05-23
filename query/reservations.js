@@ -19,7 +19,7 @@ const createReservation = async (reservation) => {
 
 const findAllReservation = async () => {
   try {
-    const result = await Reservations.findAll({ where: { deletedAt: null } });
+    const result = await Reservations.findAll({ where: { deletedAt: null }, order: [['createdAt', 'desc']] });
     return result;
   } catch (err) {
     throw err;
